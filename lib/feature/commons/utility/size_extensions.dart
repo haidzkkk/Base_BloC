@@ -1,5 +1,5 @@
 
-import '../pageutil/pageutil.dart';
+import 'pageutil.dart';
 
 ///define size for screen (width, height and sp for fonts)
 extension SizeExtension on num {
