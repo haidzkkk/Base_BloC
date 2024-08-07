@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:spotify/feature/presentation/blocs/home/home_event.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:spotify/feature/presentation/utility/locale_util.dart';
 import '../../blocs/home/home_bloc.dart';
 import '../../blocs/home/home_state.dart';
 
@@ -38,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
             if(state is CountHomeState){
               return Text("${state.count}");
             }
-            return const Text("Không biết nha");
+            return Text(context.locale.know);
           },
         ),
       ),
