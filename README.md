@@ -9,8 +9,3 @@ change the info app
 change the icon app
 - change icon in: assets/img/app_icon.png
 - cmd: flutter pub run flutter_launcher_icons
-
-  android: "app_icon"
-  ios: true
-  image_path_android: "assets/img/app_icon_android.png"
-  image_path_ios: "assets/img/app_icon_ios.png"
