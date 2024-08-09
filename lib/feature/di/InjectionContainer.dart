@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:spotify/feature/data/repositories/home_repo.dart';
 import 'package:spotify/feature/presentation/blocs/main/main_bloc_cubit.dart';
 import '../commons/utility/locale_util.dart';
 import '../commons/utility/theme_ulti.dart';
@@ -32,10 +33,10 @@ Future<void> init() async {
 
   ///[Bloc]
   ///
-  // sl.registerFactory(() => HomeBloc(roomRepo: sl(), roomOfflineRepo: sl(), messageOfflineRepo: sl()));
-  sl.registerFactory(() => HomeBloc());
+  sl.registerFactory(() => HomeBloc(repo: sl()));
   sl.registerFactory(() => MainBloc(sharedPreferences: sl(), localeHelper: sl(), themeHelper: sl()));
 
   ///[Repository]
   sl.registerFactory(() => AuthRepo(apiClient: sl(), sharedPreferences: sl()));
+  sl.registerFactory(() => HomeRepo(sl(), sl()));
 }

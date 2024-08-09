@@ -1,19 +1,37 @@
 import 'package:equatable/equatable.dart';
+import 'package:spotify/feature/data/models/response/movie.dart';
 
-abstract class HomeState extends Equatable{
-  const HomeState();
-}
-
-final class HomeInitial extends HomeState {
-  @override
-  List<Object?> get props => [];
-}
-
-final class CountHomeState extends HomeState {
+class HomeState extends Equatable {
   final int count;
+  final List<Movie> listData;
 
-  const CountHomeState(this.count);
+  HomeState({
+    int? count,
+    List<Movie>? listData,
+  }) : count = count ?? 0,
+        listData = listData ?? [];
+
+
+  HomeState copyWith({
+    int? counter,
+    List<Movie>? listData
+  }){
+    return HomeState(
+        count: counter,
+        listData: listData
+    );
+  }
+
+  HomeState copyWithCounter(int counter,){
+    return HomeState(count: counter, listData: listData);
+  }
+
+  HomeState copyWithList(List<Movie> listData,){
+    return HomeState(count: count, listData: listData);
+  }
+
 
   @override
-  List<Object?> get props => [count];
+  List<Object?> get props => [count, listData];
 }
+
