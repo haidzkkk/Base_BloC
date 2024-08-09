@@ -19,31 +19,30 @@ class MainBloc extends Cubit<MainState> {
     required this.sharedPreferences,
     required this.localeHelper,
     required this.themeHelper,
-  }) : super(MainBlocInitial()){
+  }) : super(MainState());
+
+  initMain(){
     getLocalLocale();
     getLocalTheme();
   }
 
-  Locale? locale;
-  bool? darkMode;
-
   getLocalLocale(){
-    locale = localeHelper.getLocaleLocal();
-    emit(ChangeLocaleState(locale));
+    var locale = localeHelper.getLocaleLocal();
+    emit(state.copyWithLocale(locale));
   }
 
   changeLocale(String languageCode) async{
     Locale locale = await localeHelper.setLocaleLocal(languageCode);
-    emit(ChangeLocaleState(locale));
+    emit(state.copyWithLocale(locale));
   }
 
   getLocalTheme(){
-    darkMode = themeHelper.getLocaleLocal();
-    emit(ChangeThemeState(darkMode));
+    var darkMode = themeHelper.getLocaleLocal();
+    emit(state.copyWithDarkMode(darkMode ?? false));
   }
 
   changeTheme(bool darkMode) async{
     await themeHelper.setThemeLocal(darkMode);
-    emit(ChangeThemeState(darkMode));
+    emit(state.copyWithDarkMode(darkMode));
   }
 }

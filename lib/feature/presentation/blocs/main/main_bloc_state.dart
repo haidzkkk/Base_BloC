@@ -1,28 +1,33 @@
 part of 'main_bloc_cubit.dart';
 
-@immutable
-sealed class MainState extends Equatable {}
+class MainState extends Equatable {
+  bool? darkMode;
+  Locale? locale;
 
-final class MainBlocInitial extends MainState {
+  MainState({
+    this.locale,
+    this.darkMode,
+  });
+
+  MainState copyWith({
+    bool? darkMode,
+    Locale? locale
+  }){
+    return MainState(
+        darkMode: darkMode ?? this.darkMode,
+        locale: locale ?? this.locale
+    );
+  }
+
+  MainState copyWithLocale(Locale? mLocale,){
+    return MainState(locale: mLocale, darkMode: darkMode);
+  }
+
+  MainState copyWithDarkMode(bool mDarkMode,){
+    return MainState(locale: locale, darkMode: mDarkMode);
+  }
+
+
   @override
-  List<Object?> get props => [];
-}
-
-final class ChangeLocaleState extends MainState {
-  final Locale? locale;
-
-  ChangeLocaleState(this.locale);
-
-  @override
-  List<Object?> get props => [locale];
-}
-
-
-final class ChangeThemeState extends MainState {
-  final bool? darkMode;
-
-  ChangeThemeState(this.darkMode);
-
-  @override
-  List<Object?> get props => [darkMode];
+  List<Object?> get props => [locale, darkMode];
 }

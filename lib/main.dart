@@ -21,8 +21,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale? locale;
-  bool? darkMode;
 
   @override
   Widget build(BuildContext context) {
@@ -31,32 +29,33 @@ class _MyAppState extends State<MyApp> {
         BlocProvider<MainBloc>(create: (context) => sl<MainBloc>()),
         BlocProvider<HomeBloc>(create: (context) => sl<HomeBloc>()),
       ],
-      child: BlocConsumer<MainBloc, MainState>(
-        listener: (context, state) {
-        },
-        builder: (context, state) {
-          if(state is ChangeLocaleState){
-            locale = state.locale;
-          }if(state is ChangeThemeState){
-            darkMode = state.darkMode;
-          }
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: lightTheme,
-            darkTheme: darkTheme,
-            themeMode: darkMode == true ? ThemeMode.dark : ThemeMode.light,
-            locale: locale,
-            localizationsDelegates: const [
-              AppLocalizations.delegate, // Add this line
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: AppLocalizations.supportedLocales,
-            // list languages AppLocalizations auto generate
-            home: const HomeScreen(),
+      child: Builder(
+        builder: (context) {
+          context.read<MainBloc>().initMain();
+
+          return BlocConsumer<MainBloc, MainState>(
+            listener: (context, state) {
+            },
+            builder: (context, state) {
+              return MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: lightTheme,
+                darkTheme: darkTheme,
+                themeMode: state.darkMode == true ? ThemeMode.dark : ThemeMode.light,
+                locale: state.locale,
+                localizationsDelegates: const [
+                  AppLocalizations.delegate, // Add this line
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                supportedLocales: AppLocalizations.supportedLocales,
+                // list languages AppLocalizations auto generate
+                home: const HomeScreen(),
+              );
+            },
           );
-        },
+        }
       ),
     );
   }

@@ -17,8 +17,8 @@ class HomeState extends Equatable {
     List<Movie>? listData
   }){
     return HomeState(
-        count: counter,
-        listData: listData
+        count: counter ?? count,
+        listData: listData ?? this.listData
     );
   }
 
